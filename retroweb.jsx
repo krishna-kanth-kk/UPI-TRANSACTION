@@ -1,7 +1,7 @@
 const { useState } = React;
 
 // Y2K CYBERPUNK WEB PORTAL
-const BlockUPI = () => {
+const BlockPay = () => {
   // ==================== STATE MANAGEMENT ====================
   const [activeView, setActiveView] = useState('dashboard');
   const [balance, setBalance] = useState(585432.50);

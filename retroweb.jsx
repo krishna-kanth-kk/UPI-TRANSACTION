@@ -253,64 +253,6 @@ const BlockUPI = () => {
     </div>
   );
 
-  // Send Money View
-  const SendMoneyView = () => (
-    <div className="form-container">
-      <div className="section-title">⚡ SEND PAYMENT</div>
-      
-      <div className="form-grid">
-        <div className="form-group">
-          <label className="form-label">▸ RECIPIENT UPI ID</label>
-          <input
-            type="text"
-            className="form-input"
-            placeholder="name@bank"
-            value={sendForm.recipientUPI}
-            onChange={(e) => setSendForm({ ...sendForm, recipientUPI: e.target.value })}
-          />
-        </div>
-
-        <div className="form-group">
-          <label className="form-label">▸ RECIPIENT NAME</label>
-          <input
-            type="text"
-            className="form-input"
-            placeholder="Full Name"
-            value={sendForm.recipientName}
-            onChange={(e) => setSendForm({ ...sendForm, recipientName: e.target.value })}
-          />
-        </div>
-
-        <div className="form-group">
-          <label className="form-label">▸ AMOUNT</label>
-          <input
-            type="number"
-            className="form-input"
-            placeholder="Enter amount"
-            value={sendForm.amount}
-            onChange={(e) => setSendForm({ ...sendForm, amount: e.target.value })}
-            min="1"
-          />
-        </div>
-
-        <div className="form-group">
-          <label className="form-label">▸ REFERENCE (OPTIONAL)</label>
-          <input
-            type="text"
-            className="form-input"
-            placeholder="Add note"
-            value={sendForm.reference}
-            onChange={(e) => setSendForm({ ...sendForm, reference: e.target.value })}
-          />
-        </div>
-
-        <button className="cyber-button" onClick={handleSendMoney}>
-          ▸ SEND PAYMENT ▸
-        </button>
-      </div>
-    </div>
-  );
-
   // Transactions View
   const TransactionsView = () => (
     <div>
@@ -511,7 +453,64 @@ const BlockUPI = () => {
         
         <div className="content-area">
           {activeView === 'dashboard' && <Dashboard />}
-          {activeView === 'send' && <SendMoneyView />}
+          {/* FIX: SendMoneyView inlined here instead of as a nested component.
+              Nested components re-mount on every render, causing inputs to lose focus after each keystroke. */}
+          {activeView === 'send' && (
+            <div className="form-container">
+              <div className="section-title">⚡ SEND PAYMENT</div>
+              
+              <div className="form-grid">
+                <div className="form-group">
+                  <label className="form-label">▸ RECIPIENT UPI ID</label>
+                  <input
+                    type="text"
+                    className="form-input"
+                    placeholder="name@bank"
+                    value={sendForm.recipientUPI}
+                    onChange={(e) => setSendForm({ ...sendForm, recipientUPI: e.target.value })}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">▸ RECIPIENT NAME</label>
+                  <input
+                    type="text"
+                    className="form-input"
+                    placeholder="Full Name"
+                    value={sendForm.recipientName}
+                    onChange={(e) => setSendForm({ ...sendForm, recipientName: e.target.value })}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">▸ AMOUNT</label>
+                  <input
+                    type="number"
+                    className="form-input"
+                    placeholder="Enter amount"
+                    value={sendForm.amount}
+                    onChange={(e) => setSendForm({ ...sendForm, amount: e.target.value })}
+                    min="1"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">▸ REFERENCE (OPTIONAL)</label>
+                  <input
+                    type="text"
+                    className="form-input"
+                    placeholder="Add note"
+                    value={sendForm.reference}
+                    onChange={(e) => setSendForm({ ...sendForm, reference: e.target.value })}
+                  />
+                </div>
+
+                <button className="cyber-button" onClick={handleSendMoney}>
+                  ▸ SEND PAYMENT ▸
+                </button>
+              </div>
+            </div>
+          )}
           {activeView === 'transactions' && <TransactionsView />}
           {activeView === 'qr' && <QRView />}
           {activeView === 'account' && <AccountView />}
